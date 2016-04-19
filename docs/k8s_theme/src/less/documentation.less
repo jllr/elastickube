@@ -1,2 +1,305 @@
 /* documentation.less */
 @import "dependencies.less";
+
+.container,
+.content {
+  display: flex;
+}
+.container {
+  flex-direction: column;
+}
+.content section.text {
+  flex: 1;
+  overflow: scroll;
+}
+
+.ek-header__location__help,
+.ek-header__location__more {
+	svg {
+		fill: @white;
+	}
+}
+
+.ek-documentation__title {
+	width: 235px;
+}
+
+.ek-documentation__search {
+	width: 360px;
+}
+
+.ek-sidenav-layout {
+	height: 100%;
+
+	> [transclude-id="sidenav"] {
+		width: 255px;
+	}
+}
+
+/* Documentation sidebar menu */
+
+.wy-menu-vertical {
+	padding-top: 25px;
+	
+	.caption {
+		cursor: pointer;
+	    font-size: 13px;
+	    line-height: 1.1;
+	    margin: 0;
+	    padding: 15px 20px 10px 42px;
+	    position: relative;
+
+	    &:before {
+	    	border-bottom: 5px solid transparent;
+			border-left: 5px solid @grey600;
+			border-top: 5px solid transparent;
+		    color: @black;
+		    content: '';
+			height: 0; 
+		    left: 17px;
+		    opacity: 0.6;
+		    position: absolute;
+		    top: 16px;
+		    width: 0;
+
+		    transition: transform .3s ease;
+	    }
+
+	    &.active {
+	    	cursor: default;
+    		font-weight: bold;
+
+    		&:before {
+    			transform: rotate(90deg);
+    		}
+	    }
+	}
+
+	ul {
+		display: none;
+	    list-style: none;
+	    margin: 0;
+	    padding: 0;
+
+	    li {
+	    	a {
+	    		color: @black;
+			    display: block;
+			    font-size: 12px;
+			    line-height: 14px;
+			    overflow: hidden;
+			    padding: 8px 20px 8px 52px;
+			    position: relative;
+			    text-decoration: none;
+
+			    transition: all .2s ease-in-out;
+
+			    &.current {
+			    	color: @cyan400;
+			    	font-weight: 500;
+
+			    	&:after {
+			    		left: 0;
+			    	}
+			    }
+
+			    &:after {
+			    	border-left: 4px solid @cyan400;
+				    content: "";
+				    height: 20px;
+				    left: -4px;
+				    position: absolute;
+				    top: 4px;
+			    }
+	    	}
+
+	    	&:last-child {
+	    		a {
+	    			padding-bottom: 12px;
+	    		}
+	    	}
+
+	    	&:hover {
+	    		a {
+	    			color: @cyan400;
+	    		}
+	    	}
+	    }
+
+	    &.current {
+	    	display: block;
+	    }
+	}
+}
+
+/* End of documentation sidebar menu */
+
+/* Own & overriding styles */
+
+.wy-nav-content-wrap {
+	padding: 30px;
+
+	.section {
+		border-bottom: 1px solid @grey300;
+
+		&:last-child {
+			border-bottom: none;		
+		}
+
+		p {
+			line-height: 22px;
+		    margin: 0;
+		    padding-bottom: 20px;
+		}
+
+		h1,
+		h2,
+		h3 {
+			font-weight: 400;
+    		margin: 0;
+		}
+
+		h1 {
+			font-size: 30px;
+    		padding-bottom: 25px;
+		}
+
+		h2 {
+			font-size: 24px;
+    		padding: 27px 0;
+		}
+
+		h3 {
+			font-size: 18px;
+		    font-weight: 500;
+		    padding: 28px 0 26px 0;
+		}
+
+		.headerlink {
+			display: none;
+		}
+
+		a {
+			color: @cyan500;
+    		text-decoration: none;
+
+    		&:hover {
+    			text-decoration: underline;
+    		}
+		}
+
+		ul {
+			margin: 0;
+    		padding: 0 0 30px 16px;
+
+    		li {
+    			line-height: 22px;
+    			padding-left: 12px;
+
+    			p {
+    				padding-bottom: 0;
+    			}
+    		}
+		}
+
+		table {
+			background-color: transparent;
+		    border: 0 none;
+		    border-radius: 5px;
+		    margin: 30px 0;
+		    max-width: 100%;
+		    width: 100%;
+
+		    thead {
+		    	background-color: @grey100;
+    			text-align: center;
+
+    			th {
+    				border: 1px solid @grey400;
+    				padding: 10px 15px;
+    				white-space: nowrap;
+    			}
+		    }
+
+		    td {
+		    	border: 1px solid @grey400;
+    			padding: 10px 15px;
+    			vertical-align: top;
+		    }
+		}
+
+		pre {
+			background: @grey100;
+		    border: 1px solid @grey300;
+		    border-radius: 3px;
+		    color: @grey600;
+		    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+		    font-size: 13px;
+		    margin: 0 0 20px 0;
+		    padding: 20px;
+		    word-break: break-all;
+		    word-wrap: break-word;
+		}
+
+		.doc-image {
+		    margin-bottom: 20px;
+		    padding-bottom: 5px;
+		    padding-top: 5px;
+
+		    .browser-feature {
+			    margin-top: 0;
+			    height: auto;
+			    border: 1px solid rgba(0, 0, 0, 0.06);
+			    background-color: #e8ebec;
+			    box-shadow: 0px 0px 3px 1px rgba(176, 176, 176, 0.15);
+			    transition: all 0.1s ease-in-out;
+			    width: 100%;
+			    padding-top: 50px;
+			    border-radius: 6px;
+
+			    .indicators {
+				    margin-top: -47px;
+				    margin-bottom: 9px;
+				    height: 10px;
+				    width: 90px;
+				    padding-left: 8px;
+				    padding-top: 3px;
+
+				    .circle {
+					    border-radius: 50%;
+					    width: 10px;
+					    height: 10px;
+					    background-color: @grey450;
+					    float: left;
+					    margin-right: 4px;
+					}
+				}
+
+				.browser-window {
+				    margin: 0 auto;
+				    width: 100%;
+				    background-color: @white;
+				    height: auto;
+				    border-bottom-left-radius: 6px;
+				    border-bottom-right-radius: 6px;
+				    overflow: hidden;
+
+				    img {
+				    	border-bottom-left-radius: 6px;
+    					border-bottom-right-radius: 6px;
+
+    					&.img-100 {
+    						width: 100%;
+    					}
+				    }
+				}
+			}
+
+		    .img-responsive {
+			    display: block;
+			    height: auto;
+			    max-width: 100%;
+			}
+		}
+	}
+}

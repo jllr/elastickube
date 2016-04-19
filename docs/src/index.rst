@@ -10,6 +10,17 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
+   :caption: Getting Started
+
+      What does ElasticKube do? <getting-started/what-does-elastickube-do.rst>
+      ElasticKube Set Up <getting-started/elastickube-set-up.rst>
+      Login & Quick Tour <getting-started/login-and-quicktour.rst>
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Troubleshooting
+
+      Troubleshooting Tips <troubleshooting/troubleshooting-tips.rst>
 
 
 

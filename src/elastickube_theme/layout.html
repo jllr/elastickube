@@ -18,7 +18,12 @@
   <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
   {% endblock %}
 
-   <link rel="shortcut icon" href="_static/images/favicon.png"/>
+  {# FAVICON #}
+  {% if favicon %}
+    <link rel="shortcut icon" href="{{ pathto('_static/' + favicon, 1) }}"/>
+  {% endif %}
+
+  {# CSS #}
 
   {# OPENSEARCH #}
   {% if not embedded %}
@@ -31,6 +36,9 @@
   {% if not READTHEDOCS %}
     <link rel="stylesheet" href="{{ pathto('_static/' + style, 1) }}" type="text/css" />
   {% endif %}
+
+  <link rel="stylesheet" href="{{ pathto('_static/css/elastickube.css', 1) }}" type="text/css" />
+  <link rel="stylesheet" href="{{ pathto('_static/css/documentation.css', 1) }}" type="text/css" />
 
   {% for cssfile in extra_css_files %}
     <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}" type="text/css" />
@@ -71,46 +79,55 @@
 
 <body role="document">
   <div class="layout-fill container">
-    {% include "header.html" %}
+    <div class="header">
+      {% include "header.html" %}
+    </div>
 
     <div class="search">
-      <div class="ek-header-layout__header" flex layout="row" layout-align="start center">
-        <h3 class="ek-documentation__title ek-title">Documentation</h3>
-          {% block sidebartitle %}
-          <div>
-            {% include "searchbox.html" %}
+        <div class="ek-header-layout__header">
+          <h3 class="ek-documentation__title ek-title">Documentation</h3>
+            {% block sidebartitle %}
+            <div>
+              {% include "searchbox.html" %}
+            </div>
+            {% endblock %}
+        </div>
+      </div>
+
+      <div class="ek-application-layout__body ek-sidenav-layout content">
+
+        {# SIDE NAV, TOGGLES ON MOBILE #}
+        <nav data-toggle="wy-nav-shift" class="wy-nav-side ek-sidenav-layout__sidenav layout-column docs-nav" transclude-id="sidenav">
+          <div class="wy-side-scroll">
+            <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+              {% block menu %}
+                {% set toctree = toctree(maxdepth=2, collapse=theme_collapse_navigation, includehidden=True) %}
+                {% if toctree %}
+                    {{ toctree }}
+                {% else %}
+                    <!-- Local TOC -->
+                    <div class="local-toc">{{ toc }}</div>
+                {% endif %}
+              {% endblock %}
+            </div>
           </div>
-          {% endblock %}
+        </nav>
+
+        <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap docs-content ek-sidenav-layout__body layout-column flex text">
+          {# PAGE CONTENT #}
+          <div class="wy-nav-content">
+            <div class="rst-content">
+              <div role="main" class="document doc-section-wrap" itemscope="itemscope" itemtype="http://schema.org/Article">
+               <div itemprop="articleBody" class="doc-section">
+                {% block body %}{% endblock %}
+               </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
       </div>
     </div>
-
-    <div class="ek-sidenav-layout content">
-
-      {# SIDE NAV, TOGGLES ON MOBILE #}
-      <nav data-toggle="wy-nav-shift" transclude-id="sidenav">
-        <div class="wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          {% block menu %}
-            {% set toctree = toctree(maxdepth=2, collapse=theme_collapse_navigation, includehidden=True) %}
-            {% if toctree %}
-                {{ toctree }}
-            {% else %}
-                <!-- Local TOC -->
-                <div class="local-toc">{{ toc }}</div>
-            {% endif %}
-          {% endblock %}
-        </div>
-      </nav>
-
-      <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap text">
-        {# PAGE CONTENT #}
-        <div role="main" itemscope="itemscope" itemtype="http://schema.org/Article">
-         <div itemprop="articleBody">
-          {% block body %}{% endblock %}
-         </div>
-        </div>
-      </section>
-    </div>
-  </div>
 
   {% if not embedded %}
 
@@ -147,7 +164,7 @@
         $('.wy-menu-vertical ul li.current').parent().prev().addClass('active');
         $('.wy-menu-vertical p').click(function() {
             $('.wy-menu-vertical p').removeClass('active');
-            $(this).closest('p').addClass('active');
+            $(this).closest('p').addClass('active'); 
             var checkElement = $(this).next();
             if((checkElement.is('.wy-menu-vertical ul')) && (checkElement.is(':visible'))) {
                 $(this).closest('.wy-menu-vertical p').removeClass('active');
@@ -160,8 +177,8 @@
             if($(this).closest('.wy-menu-vertical p').find('ul').children().length == 0) {
                 return true;
             } else {
-                return false;
-            }
+                return false; 
+            }   
         });
       });
     </script>
